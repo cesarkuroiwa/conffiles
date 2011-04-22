@@ -1,0 +1,43 @@
+logging {
+	channel default_channel {
+		file "log/default.log" versions 3 size 30m;
+		print-time yes;
+		print-category yes;
+		severity debug 2;
+	};
+	channel dnssec_channel {
+		file "log/dnssec.log" versions 3 size 30m; 
+		print-time yes;
+		print-category yes;
+		severity debug 3;
+	};
+
+	channel xfer_channel {
+		file "log/xfer.log" versions 3 size 30m;
+		print-time yes;
+		print-category yes;
+		severity debug 3;
+	};
+
+	channel query_channel {
+		file "log/query.log" versions 3 size 30m;
+		print-time yes;
+		print-category yes;
+		severity info;
+	};
+
+	channel resolver_channel {
+		file "log/recurse.log" versions 3 size 30m;
+		print-time yes;
+		print-category yes;
+		severity debug 2;
+	};
+
+	category dnssec { dnssec_channel; };
+	category xfer-in { xfer_channel; };
+	category xfer-out { xfer_channel; };
+	category notify { xfer_channel; };
+	category queries { query_channel; };
+	category resolver { resolver_channel; };
+	category default { default_channel; };
+};
