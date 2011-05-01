@@ -1,0 +1,1 @@
+./configure --prefix=/usr/local/httpd --datadir=/common/httpd/share --sysconfdir=/common/httpd/etc --localstatedir=/common/httpd/var --enable-auth-digest
