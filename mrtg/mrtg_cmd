@@ -1,0 +1,4 @@
+# MRTG (every 5 minutes)
+*/5 *  * * *    root    /usr/local/mrtg/bin/mrtg /common/mrtg/mrtg.conf --logging /common/mrtg/mrtg.log
+*/4 *  * * *    root    rm -f /common/mrtg/mrtg.conf_l*
+
