@@ -1,0 +1,31 @@
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user	command
+17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+
+# MRTG (every 5 minutes)
+*/5 *  * * *	root    /usr/local/mrtg/bin/mrtg /common/mrtg/mrtg.conf --logging /common/mrtg/mrtg.log
+*/4 *  * * *	root    rm -f /common/mrtg/mrtg.conf_l*
+
+# Wake up
+50   6   * * 1-5	root 	/home/cesar/alarm.sh
+40   8   * * 6,7	root 	/home/cesar/alarm.sh 2
+
+# Shutdown
+0  3	* * * 	root	/sbin/init 0
+
+# noip
+*/15  *	* * *   root	/root/noip.sh	
+
+* *	* * *	root	/common/rrd/netrrd_update.sh
